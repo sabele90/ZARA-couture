@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "./Customize.css";
-
+import { useParams } from "react-router-dom";
 function Customize() {
+  const { imageId } = useParams();
   const [image, setImage] = useState(
-    "https://static.zara.net/photos///2024/V/0/1/p/2052/142/802/2/w/850/2052142802_1_1_1.jpg?ts=1700645686074"
+    decodeURIComponent(imageId) ||
+      "https://static.zara.net/photos///2024/V/0/1/p/2052/142/802/2/w/850/2052142802_1_1_1.jpg?ts=1700645686074"
   );
   const handleClick = (newImage) => {
     setImage(newImage);

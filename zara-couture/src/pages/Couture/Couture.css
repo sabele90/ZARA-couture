@@ -1,112 +1,53 @@
 .body-couture {
+
   margin-top: 9rem;
   display: flex;
   flex-direction: column;
   width: 100vw;
-}
-.icon-1{
-position: absolute;
-bottom: -50%;
-left: 30%;
-}
-.icon-2{
-    position: absolute;
-    bottom: 2rem;
-right: 50%;
+  height: 100vh;
 
 }
-.icon-3{
-    position: absolute;
-    bottom: -2rem;
-    right: 50%;
-}
-.icon-4{
-    z-index: 3;
-    position: absolute;
-  bottom: -100rem;
-  right: 50%;
- 
-}
-.row-0{
-
-    width: 100vw;
-    height: 19rem;
-}
-
 .video-logo{
-    z-index: -3;
-    margin: 0;
-    margin-top: -15rem;
-    object-position: 60% -50%;
+ margin-top: -10rem;
+object-position: 60% -30%;
  object-fit: cover;
-
 width: 100vw;
 height: 34rem;
   
- 
 }
+.row-0{
+    display: flex;
+ 
+    width: 100%;
+    height: 60rem;
+}
+
 .row-1{
     display: flex;
     flex-direction: row;
-    height: 50rem;
-    
-}
-.video-1 {
-
-  width: 100%;
-  height: 100%;
-
-}
-.coat-1{
-position: relative;
-z-index: -1;
-margin-top: -10rem;
-height: 80rem;
-overflow: hidden;
-}
-.big-image{
-position: relative;
-}
-.row-2{
-    display: flex;
-    flex-direction: row;
-    height: 25rem;
-    background-color: aquamarine;
+    height: 75rem;
 
 }
 .image-atelier-1{
-
+   height: 100%;
    width: 70%;
 }
 .image-atelier-2{
     width: 30%;
     height: 100%;
 }
+
 .row-3{
+    width: 100%;
     display: flex;
     flex-direction: row;
-    height: 50rem;
-    background-color: aquamarine;
-
-}
-.container-suit-1{
-    position: relative;
+ 
 
 }
 
-.suit-1{
-   width: 100%;
-   
-}
-
-.suit-2{
-    width: 60%;
-    height: 85rem;
-    z-index: 1;
-}
 .row-4{
   
-    width: 40rem;
+    width: 45rem;
     height: 35rem;
 
 }

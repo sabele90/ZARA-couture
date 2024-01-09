@@ -35,7 +35,9 @@ function Header() {
           <div className="shooping-bag-container">
             <div>LOGIN</div>
             <div>HELP</div>
-            <div>SHOPPING BAG (0)</div>
+            <Link className="link-style" to="/bag">
+              <div>SHOPPING BAG (0)</div>
+            </Link>
           </div>
           <div className="search-continer">
             <input className="inputSearch" type="text" placeholder="SEARCH" />
