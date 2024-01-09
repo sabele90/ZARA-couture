@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         element: <Couture />,
       },
       {
-        path: "/customize/:imageId",
+        path: "/customize/:id/:encodedImageUrl",
         element: <Customize />,
       },
       {

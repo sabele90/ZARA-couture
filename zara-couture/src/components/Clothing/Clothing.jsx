@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const ClothingItem = ({ item, index }) => {
   return (
     <div className={`container-item-${index}`}>
-      <Link to={`/customize/${encodeURIComponent(item.images[0])}`}>
+      <Link to={`/customize/${item.id}/${encodeURIComponent(item.images[0])}`}>
         <img
           className={`clothing-image-${index}`}
           src={item.images[0]}

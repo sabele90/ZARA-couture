@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Customize.css";
 import { useParams } from "react-router-dom";
+import { clothing } from "../../../data";
+console.log(clothing);
+
 function Customize() {
-  const { imageId } = useParams();
-  const [image, setImage] = useState(
-    decodeURIComponent(imageId) ||
-      "https://static.zara.net/photos///2024/V/0/1/p/2052/142/802/2/w/850/2052142802_1_1_1.jpg?ts=1700645686074"
-  );
+  const { id, encodedImageUrl } = useParams(); // Obteniendo id y encodedImageUrl de la ruta
+
+  const [selectedItem, setSelectedItem] = useState();
+  const [image, setImage] = useState("");
+
+  useEffect(() => {
+    const numericId = parseInt(id, 10);
+    const item = clothing.find((item) => item.id === numericId);
+    setSelectedItem(item);
+
+    // Si el artículo se encuentra, usa su primera imagen, si no, usa la URL de la imagen codificada
+    setImage(item ? item.images[0] : decodeURIComponent(encodedImageUrl));
+    console.log("ID:", id, "Encoded Image URL:", encodedImageUrl);
+  }, [id, encodedImageUrl]);
   const handleClick = (newImage) => {
     setImage(newImage);
   };
@@ -19,7 +31,7 @@ function Customize() {
 
           <div className="customize">
             <h4>WOOL BLEND BELTED COAT</h4>
-            <div className="price">99.95 EUR</div>
+            <div className="price">{selectedItem?.price}</div>
             <hr className="customize-line" />
 
             <div className="leghts">
