@@ -2,7 +2,43 @@ import React, { useEffect, useState } from "react";
 import "./Customize.css";
 import { useParams } from "react-router-dom";
 import { clothing } from "../../../data";
-import CircularProgressWithLabel from "../../components/CircularProgressWithLabel.jsx";
+import PropTypes from "prop-types";
+import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
+function CircularProgressWithLabel(props) {
+  return (
+    <Box sx={{ position: "relative", display: "inline-flex" }}>
+      <CircularProgress variant="determinate" color="inherit" {...props} />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Typography variant="" component="div">
+          {`${Math.round(props.value)}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
+CircularProgressWithLabel.propTypes = {
+  /**
+   * The value of the progress indicator for the determinate variant.
+   * Value between 0 and 100.
+   * @default 0
+   */
+  value: PropTypes.number.isRequired,
+};
 
 function Customize() {
   const { id, encodedImageUrl } = useParams();
@@ -13,18 +49,23 @@ function Customize() {
   const [selectedLapel, setSelectedLapel] = useState(null);
   const [selectedButton, setSelectedButton] = useState(null);
   const [selectedShape, setSelectedShape] = useState(null);
-  const [progress, setProgress] = React.useState(10);
+  const [progress, setProgress] = React.useState(0);
+  const [loading, setLoading] = useState(false);
+  const [finishedLoading, setFinishedLoading] = useState(false);
 
-  useEffect(() => {
+  const startProgress = () => {
     const timer = setInterval(() => {
-      setProgress((prevProgress) =>
-        prevProgress >= 100 ? 0 : prevProgress + 10
-      );
+      setProgress((prevProgress) => {
+        const newProgress = prevProgress + 10;
+        if (newProgress >= 100) {
+          clearInterval(timer);
+          setFinishedLoading(true);
+          return 100;
+        }
+        return newProgress;
+      });
     }, 800);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+  };
 
   useEffect(() => {
     const numericId = parseInt(id, 10);
@@ -36,8 +77,12 @@ function Customize() {
     console.log("ID:", id, "Encoded Image URL:", encodedImageUrl);
   }, [id, encodedImageUrl]);
 
-  const handleClick = (newImage) => {
+  const handleClickImage = (newImage) => {
     setImage(newImage);
+  };
+  const handleClickLoading = () => {
+    setLoading(true);
+    startProgress();
   };
   const changeSelectedLength = (id) => {
     setSelectedLength(selectedLength === id ? null : id);
@@ -62,15 +107,24 @@ function Customize() {
   return (
     <>
       <div className="body-customize">
-        <CircularProgressWithLabel value={progress} />
         <div className="elements">
           <div className="composition">
             <h5>{selectedItem?.title}</h5>
             <h5>{selectedItem?.titleComposition}</h5>
             <p className="text-composition">{selectedItem?.composition}</p>
           </div>
-          <img className="main-image" src={image} />
-
+          <div className="main-image-container">
+            {loading && !finishedLoading ? (
+              <CircularProgressWithLabel value={progress} />
+            ) : finishedLoading ? (
+              <img
+                className="main-image"
+                src="https://static.zara.net/photos///2023/I/0/1/p/0518/043/401/2/w/850/0518043401_1_1_1.jpg?ts=1694984370835"
+              />
+            ) : (
+              <img className="main-image" src={image} />
+            )}
+          </div>
           <div className="customize">
             <h4>{selectedItem?.name}</h4>
             <div className="price">{selectedItem?.price}</div>
@@ -82,7 +136,7 @@ function Customize() {
                   ${selectedLength === "length1" ? "select-custom" : ""}`}
                 onClick={() => {
                   changeSelectedLength("length1");
-                  handleClick(
+                  handleClickImage(
                     "https://static.zara.net/photos///2024/V/0/1/p/2146/745/800/2/w/850/2146745800_6_1_1.jpg?ts=1703060648425"
                   );
                 }}
@@ -95,7 +149,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedLength("length2");
-                  handleClick(
+                  handleClickImage(
                     "https://static.zara.net/photos///2024/V/0/1/p/2110/775/800/2/w/850/2110775800_6_1_1.jpg?ts=1701418623170"
                   );
                 }}
@@ -108,7 +162,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedLength("length3");
-                  handleClick(
+                  handleClickImage(
                     "https://static.zara.net/photos///2023/I/0/1/p/7649/187/800/2/w/850/7649187800_6_1_1.jpg?ts=1693931380345"
                   );
                 }}
@@ -123,7 +177,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedColor("color1");
-                  handleClick(
+                  handleClickImage(
                     "https://static.zara.net/photos///2024/V/0/1/p/2052/142/802/2/w/850/2052142802_6_1_1.jpg?ts=1700651707403"
                   );
                 }}
@@ -134,7 +188,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedColor("color2");
-                  handleClick(
+                  handleClickImage(
                     "https://static.zara.net/photos///2024/V/0/1/p/2052/102/711/2/w/850/2052102711_6_1_1.jpg?ts=1703172088307"
                   );
                 }}
@@ -146,7 +200,7 @@ function Customize() {
                 onClick={() => {
                   changeSelectedColor("color3");
 
-                  handleClick(
+                  handleClickImage(
                     "https://static.zara.net/photos///2023/I/0/1/p/8863/745/800/2/w/850/8863745800_6_1_1.jpg?ts=1697702569369"
                   );
                 }}
@@ -158,7 +212,7 @@ function Customize() {
                 onClick={() => {
                   changeSelectedColor("color4");
 
-                  handleClick(
+                  handleClickImage(
                     "https://static.zara.net/photos///2023/I/0/1/p/8606/744/507/2/w/850/8606744507_6_1_1.jpg?ts=1697784775518"
                   );
                 }}
@@ -172,7 +226,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedLapel("lapel1");
-                  handleClick(
+                  handleClickImage(
                     "https://static.zara.net/photos///2024/V/0/1/p/2094/745/800/2/w/850/2094745800_2_1_1.jpg?ts=1701278486022"
                   );
                 }}
@@ -183,7 +237,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedLapel("lapel2");
-                  handleClick(
+                  handleClickImage(
                     "https://static.zara.net/photos///2024/V/0/1/p/2094/886/806/23/w/850/2094886806_2_9_1.jpg?ts=1702644316625"
                   );
                 }}
@@ -197,7 +251,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedButton("button1");
-                  handleClick(
+                  handleClickImage(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460027/ZARA/Screenshot_2024-01-05_at_13.01.45_hp94a5.png"
                   );
                 }}
@@ -208,7 +262,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedButton("button2");
-                  handleClick(
+                  handleClickImage(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460026/ZARA/Screenshot_2024-01-05_at_13.02.50_ayxf4c.png"
                   );
                 }}
@@ -219,7 +273,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedButton("button3");
-                  handleClick(
+                  handleClickImage(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460025/ZARA/Screenshot_2024-01-05_at_13.05.36_kshhst.png"
                   );
                 }}
@@ -230,7 +284,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedButton("button4");
-                  handleClick(
+                  handleClickImage(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704970305/ZARA/PHOTO-2024-01-09-20-11-26_2_uzpd14.jpg"
                   );
                 }}
@@ -244,7 +298,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedShape("shape1");
-                  handleClick(
+                  handleClickImage(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460689/ZARA/2753341800_6_3_1_fzo3cq.jpg"
                   );
                 }}
@@ -255,7 +309,7 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedShape("shape2");
-                  handleClick(
+                  handleClickImage(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460782/ZARA/2753340800_2_2_1_b8bbzz.jpg"
                   );
                 }}
@@ -266,14 +320,19 @@ function Customize() {
                 }`}
                 onClick={() => {
                   changeSelectedShape("shape3");
-                  handleClick(
+                  handleClickImage(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460885/ZARA/Screenshot_2024-01-05_at_13.20.01_iqucnh.png"
                   );
                 }}
               ></div>
             </div>
             <div className="button-container">
-              <button className="button-option-customize"> CUSTOMIZE</button>
+              <button
+                className="button-option-customize"
+                onClick={handleClickLoading}
+              >
+                CUSTOMIZE
+              </button>
             </div>
 
             <div className="button-container">

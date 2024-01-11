@@ -34,6 +34,15 @@
 .text-composition {
   margin: 1rem;
 }
+.main-image-container {
+  border: 0.5px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25rem;
+  height: 30rem;
+  object-fit: cover;
+}
 .main-image {
   width: 25rem;
   height: 30rem;
