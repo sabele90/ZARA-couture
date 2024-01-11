@@ -2,13 +2,29 @@ import React, { useEffect, useState } from "react";
 import "./Customize.css";
 import { useParams } from "react-router-dom";
 import { clothing } from "../../../data";
-console.log(clothing);
+import CircularProgressWithLabel from "../../components/CircularProgressWithLabel.jsx";
 
 function Customize() {
-  const { id, encodedImageUrl } = useParams(); // Obteniendo id y encodedImageUrl de la ruta
+  const { id, encodedImageUrl } = useParams();
   const [selectedItem, setSelectedItem] = useState();
   const [image, setImage] = useState("");
-  const [selectCustom, setSelectCustom] = useState(false);
+  const [selectedLength, setSelectedLength] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedLapel, setSelectedLapel] = useState(null);
+  const [selectedButton, setSelectedButton] = useState(null);
+  const [selectedShape, setSelectedShape] = useState(null);
+  const [progress, setProgress] = React.useState(10);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) =>
+        prevProgress >= 100 ? 0 : prevProgress + 10
+      );
+    }, 800);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   useEffect(() => {
     const numericId = parseInt(id, 10);
@@ -23,37 +39,49 @@ function Customize() {
   const handleClick = (newImage) => {
     setImage(newImage);
   };
+  const changeSelectedLength = (id) => {
+    setSelectedLength(selectedLength === id ? null : id);
+  };
 
-  function changeBorder(imageId) {
-    if (selectCustom === imageId) {
-      setSelectCustom(null);
-    } else {
-      setSelectCustom(imageId);
-    }
-  }
+  const changeSelectedColor = (id) => {
+    setSelectedColor(selectedColor === id ? null : id);
+  };
+
+  const changeSelectedLapel = (id) => {
+    setSelectedLapel(selectedLapel === id ? null : id);
+  };
+
+  const changeSelectedButton = (id) => {
+    setSelectedButton(selectedButton === id ? null : id);
+  };
+
+  const changeSelectedShape = (id) => {
+    setSelectedShape(selectedShape === id ? null : id);
+  };
+
   return (
     <>
       <div className="body-customize">
+        <CircularProgressWithLabel value={progress} />
         <div className="elements">
           <div className="composition">
             <h5>{selectedItem?.title}</h5>
             <h5>{selectedItem?.titleComposition}</h5>
             <p className="text-composition">{selectedItem?.composition}</p>
           </div>
-          <img className="grey-coat" src={image} />
+          <img className="main-image" src={image} />
 
           <div className="customize">
             <h4>{selectedItem?.name}</h4>
             <div className="price">{selectedItem?.price}</div>
             <hr className="customize-line" />
-
-            <div className="leghts">
-              <img
-                className={`length-1 ${
-                  selectCustom === "image1" ? "select-custom" : ""
-                }`}
+            <h5>LENGHTS</h5>
+            <div className="lengths">
+              <div
+                className={`length-1 
+                  ${selectedLength === "length1" ? "select-custom" : ""}`}
                 onClick={() => {
-                  changeBorder("image1");
+                  changeSelectedLength("length1");
                   handleClick(
                     "https://static.zara.net/photos///2024/V/0/1/p/2146/745/800/2/w/850/2146745800_6_1_1.jpg?ts=1703060648425"
                   );
@@ -61,12 +89,12 @@ function Customize() {
                 src="https://static.zara.net/photos///2024/V/0/1/p/2146/745/800/2/w/850/2146745800_6_1_1.jpg?ts=1703060648425"
               />
 
-              <img
+              <div
                 className={`length-2 ${
-                  selectCustom === "image2" ? "select-custom" : ""
+                  selectedLength === "length2" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("image2");
+                  changeSelectedLength("length2");
                   handleClick(
                     "https://static.zara.net/photos///2024/V/0/1/p/2110/775/800/2/w/850/2110775800_6_1_1.jpg?ts=1701418623170"
                   );
@@ -74,12 +102,12 @@ function Customize() {
                 src="https://static.zara.net/photos///2024/V/0/1/p/2110/775/800/2/w/850/2110775800_6_1_1.jpg?ts=1701418623170"
               />
 
-              <img
+              <div
                 className={`length-3 ${
-                  selectCustom === "image3" ? "select-custom" : ""
+                  selectedLength === "length3" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("image3");
+                  changeSelectedLength("length3");
                   handleClick(
                     "https://static.zara.net/photos///2023/I/0/1/p/7649/187/800/2/w/850/7649187800_6_1_1.jpg?ts=1693931380345"
                   );
@@ -87,13 +115,14 @@ function Customize() {
                 src="https://static.zara.net/photos///2023/I/0/1/p/7649/187/800/2/w/850/7649187800_6_1_1.jpg?ts=1693931380345"
               />
             </div>
+            <h5>COLOR</h5>
             <div className="colours">
               <div
                 className={`color-1 ${
-                  selectCustom === "color1" ? "select-custom" : ""
+                  selectedColor === "color1" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("color1");
+                  changeSelectedColor("color1");
                   handleClick(
                     "https://static.zara.net/photos///2024/V/0/1/p/2052/142/802/2/w/850/2052142802_6_1_1.jpg?ts=1700651707403"
                   );
@@ -101,10 +130,10 @@ function Customize() {
               ></div>
               <div
                 className={`color-2 ${
-                  selectCustom === "color2" ? "select-custom" : ""
+                  selectedColor === "color2" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("color2");
+                  changeSelectedColor("color2");
                   handleClick(
                     "https://static.zara.net/photos///2024/V/0/1/p/2052/102/711/2/w/850/2052102711_6_1_1.jpg?ts=1703172088307"
                   );
@@ -112,24 +141,37 @@ function Customize() {
               ></div>
               <div
                 className={`color-3 ${
-                  selectCustom === "color3" ? "select-custom" : ""
+                  selectedColor === "color3" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("color3");
+                  changeSelectedColor("color3");
 
                   handleClick(
                     "https://static.zara.net/photos///2023/I/0/1/p/8863/745/800/2/w/850/8863745800_6_1_1.jpg?ts=1697702569369"
                   );
                 }}
               ></div>
+              <div
+                className={`color-4 ${
+                  selectedColor === "color4" ? "select-custom" : ""
+                }`}
+                onClick={() => {
+                  changeSelectedColor("color4");
+
+                  handleClick(
+                    "https://static.zara.net/photos///2023/I/0/1/p/8606/744/507/2/w/850/8606744507_6_1_1.jpg?ts=1697784775518"
+                  );
+                }}
+              ></div>
             </div>
+            <h5>LAPEL</h5>
             <div className="lapels">
               <div
                 className={`lapel-1 ${
-                  selectCustom === "image4" ? "select-custom" : ""
+                  selectedLapel === "lapel1" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("image4");
+                  changeSelectedLapel("lapel1");
                   handleClick(
                     "https://static.zara.net/photos///2024/V/0/1/p/2094/745/800/2/w/850/2094745800_2_1_1.jpg?ts=1701278486022"
                   );
@@ -137,23 +179,24 @@ function Customize() {
               ></div>
               <div
                 className={`lapel-2 ${
-                  selectCustom === "image5" ? "select-custom" : ""
+                  selectedLapel === "lapel2" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("image5");
+                  changeSelectedLapel("lapel2");
                   handleClick(
                     "https://static.zara.net/photos///2024/V/0/1/p/2094/886/806/23/w/850/2094886806_2_9_1.jpg?ts=1702644316625"
                   );
                 }}
               ></div>
             </div>
+            <h5>BUTTON</h5>
             <div className="buttons">
               <div
                 className={`button-1 ${
-                  selectCustom === "image6" ? "select-custom" : ""
+                  selectedButton === "button1" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("image6");
+                  changeSelectedButton("button1");
                   handleClick(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460027/ZARA/Screenshot_2024-01-05_at_13.01.45_hp94a5.png"
                   );
@@ -161,10 +204,10 @@ function Customize() {
               ></div>
               <div
                 className={`button-2 ${
-                  selectCustom === "image7" ? "select-custom" : ""
+                  selectedButton === "button2" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("image7");
+                  changeSelectedButton("button2");
                   handleClick(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460026/ZARA/Screenshot_2024-01-05_at_13.02.50_ayxf4c.png"
                   );
@@ -172,23 +215,35 @@ function Customize() {
               ></div>
               <div
                 className={`button-3 ${
-                  selectCustom === "image8" ? "select-custom" : ""
+                  selectedButton === "button3" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("image8");
+                  changeSelectedButton("button3");
                   handleClick(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460025/ZARA/Screenshot_2024-01-05_at_13.05.36_kshhst.png"
                   );
                 }}
               ></div>
+              <div
+                className={`button-4 ${
+                  selectedButton === "button4" ? "select-custom" : ""
+                }`}
+                onClick={() => {
+                  changeSelectedButton("button4");
+                  handleClick(
+                    "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704970305/ZARA/PHOTO-2024-01-09-20-11-26_2_uzpd14.jpg"
+                  );
+                }}
+              ></div>
             </div>
+            <h5>SHAPE</h5>
             <div className="shapes">
               <div
                 className={`shape-1 ${
-                  selectCustom === "image9" ? "select-custom" : ""
+                  selectedShape === "shape1" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("image9");
+                  changeSelectedShape("shape1");
                   handleClick(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460689/ZARA/2753341800_6_3_1_fzo3cq.jpg"
                   );
@@ -196,10 +251,10 @@ function Customize() {
               ></div>
               <div
                 className={`shape-2 ${
-                  selectCustom === "image10" ? "select-custom" : ""
+                  selectedShape === "shape2" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("image10");
+                  changeSelectedShape("shape2");
                   handleClick(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460782/ZARA/2753340800_2_2_1_b8bbzz.jpg"
                   );
@@ -207,10 +262,10 @@ function Customize() {
               ></div>
               <div
                 className={`shape-3 ${
-                  selectCustom === "image11" ? "select-custom" : ""
+                  selectedShape === "shape3" ? "select-custom" : ""
                 }`}
                 onClick={() => {
-                  changeBorder("image11");
+                  changeSelectedShape("shape3");
                   handleClick(
                     "https://res.cloudinary.com/dfwcnoezy/image/upload/v1704460885/ZARA/Screenshot_2024-01-05_at_13.20.01_iqucnh.png"
                   );
