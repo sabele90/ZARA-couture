@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { useShoppingCart } from "../../Context/ShoopingCartContext";
 
 function CircularProgressWithLabel(props) {
   return (
@@ -52,6 +53,7 @@ function Customize() {
   const [progress, setProgress] = React.useState(0);
   const [loading, setLoading] = useState(false);
   const [finishedLoading, setFinishedLoading] = useState(false);
+  const { addToCart } = useShoppingCart();
 
   const startProgress = () => {
     const timer = setInterval(() => {
@@ -84,6 +86,18 @@ function Customize() {
     setLoading(true);
     startProgress();
   };
+
+  const handleAddToCart = () => {
+    const productToAdd = {
+      id: selectedItem.id,
+      name: selectedItem.name,
+      price: selectedItem.price,
+      image: image,
+      // otras propiedades que quieras incluir
+    };
+    addToCart(productToAdd);
+  };
+
   const changeSelectedLength = (id) => {
     setSelectedLength(selectedLength === id ? null : id);
   };
@@ -336,7 +350,10 @@ function Customize() {
             </div>
 
             <div className="button-container">
-              <button className="button-add"> ADD</button>
+              <button className="button-add" onClick={handleAddToCart}>
+                {" "}
+                ADD
+              </button>
             </div>
           </div>
         </div>

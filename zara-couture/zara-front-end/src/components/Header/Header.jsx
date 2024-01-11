@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./Header.css";
 import Modal from "../Modal/Modal";
 import { Link } from "react-router-dom";
+import { useShoppingCart } from "../../Context/ShoopingCartContext";
 
 function Header() {
   const [showModal, setShowModal] = useState(false);
+  const { count } = useShoppingCart();
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -36,7 +38,7 @@ function Header() {
             <div>LOGIN</div>
             <div>HELP</div>
             <Link className="link-style" to="/bag">
-              <div>SHOPPING BAG (0)</div>
+              <div>SHOPPING BAG ({count})</div>
             </Link>
           </div>
           <div className="search-continer">
