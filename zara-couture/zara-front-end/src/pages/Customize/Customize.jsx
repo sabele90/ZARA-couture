@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Customize.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { clothing } from "../../../data";
 import PropTypes from "prop-types";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -122,6 +122,10 @@ function Customize() {
     <>
       <div className="body-customize">
         <div className="elements">
+          <Link to="/couture">
+            <h5 className="back-shopping">CONTINUE SHOPPING</h5>
+          </Link>
+
           <div className="composition">
             <h5>{selectedItem?.title}</h5>
             <h5>{selectedItem?.titleComposition}</h5>

@@ -23,6 +23,11 @@
   justify-content: space-evenly;
   width: 100vw;
 }
+
+.back-shopping{
+  position: absolute;
+
+}
 .composition {
   font-size: small;
   margin-top: 15rem;

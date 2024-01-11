@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const ShoppingCartContext = createContext();
 
@@ -10,9 +10,11 @@ export const ShoppingCartProvider = ({ children }) => {
 
   const addToCart = (item) => {
     setCartItems((prevItems) => [...prevItems, item]);
-    setTotal(updatedItems.reduce((total, item) => total + item.price, 0));
-    return updatedItems;
   };
+  useEffect(() => {
+    const newTotal = cartItems.reduce((total, item) => total + item.price, 0);
+    setTotal(newTotal);
+  }, [cartItems]);
   const count = cartItems.length;
 
   return (
