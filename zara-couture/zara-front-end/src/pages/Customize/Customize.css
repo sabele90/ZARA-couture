@@ -102,6 +102,33 @@ h4 {
   width: 3rem;
   height: 4.5rem;
 }
+.small-size{
+margin-top: 2rem;
+padding-bottom: 0.3rem;
+display: flex;
+justify-content: center;
+gap: 0.3rem;
+}
+.button-small-size{
+  width: 7rem;
+  height: 2rem;
+  background-color: white;
+  font-size: 0.7rem;
+  border: 0.5px solid black;
+}
+.large-size{
+  
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+  }
+  .button-large-size{
+    width: 7rem;
+    height: 2rem;
+    background-color: white;
+    font-size: 0.7rem;
+    border: 0.5px solid black;
+  }
 .colours {
   display: flex;
   flex-direction: row;
@@ -239,4 +266,8 @@ h4 {
   border-right: none;
   border-bottom: none;
   border-left: none;
+}
+.button-click{
+  background-color: black;
+  color: white;
 }

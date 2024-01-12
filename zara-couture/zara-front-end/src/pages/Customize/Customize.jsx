@@ -53,6 +53,7 @@ function Customize() {
   const [progress, setProgress] = React.useState(0);
   const [loading, setLoading] = useState(false);
   const [finishedLoading, setFinishedLoading] = useState(false);
+  const [colorButton, setColorButton] = useState(false);
   const { addToCart } = useShoppingCart();
 
   const startProgress = () => {
@@ -93,7 +94,6 @@ function Customize() {
       name: selectedItem.name,
       price: selectedItem.price,
       image: image,
-      // otras propiedades que quieras incluir
     };
     addToCart(productToAdd);
   };
@@ -118,6 +118,9 @@ function Customize() {
     setSelectedShape(selectedShape === id ? null : id);
   };
 
+  const changeColorButton = (id) => {
+    setColorButton(colorButton === id ? null : id);
+  };
   return (
     <>
       <div className="body-customize">
@@ -186,6 +189,43 @@ function Customize() {
                 }}
                 src="https://static.zara.net/photos///2023/I/0/1/p/7649/187/800/2/w/850/7649187800_6_1_1.jpg?ts=1693931380345"
               />
+            </div>
+
+            <div className="small-size">
+              <button
+                className={`button-small-size ${
+                  colorButton === "xs" ? "button-click" : ""
+                }`}
+                onClick={() => changeColorButton("xs")}
+              >
+                XS
+              </button>{" "}
+              <button
+                className={`button-small-size ${
+                  colorButton === "s" ? "button-click" : ""
+                }`}
+                onClick={() => changeColorButton("s")}
+              >
+                S
+              </button>
+            </div>
+            <div className="large-size">
+              <button
+                className={`button-large-size ${
+                  colorButton === "m" ? "button-click" : ""
+                }`}
+                onClick={() => changeColorButton("m")}
+              >
+                M
+              </button>{" "}
+              <button
+                className={`button-large-size ${
+                  colorButton === "l" ? "button-click" : ""
+                }`}
+                onClick={() => changeColorButton("l")}
+              >
+                L
+              </button>
             </div>
             <h5>COLOR</h5>
             <div className="colours">
@@ -346,15 +386,28 @@ function Customize() {
             </div>
             <div className="button-container">
               <button
-                className="button-option-customize"
-                onClick={handleClickLoading}
+                className={`button-option-customize ${
+                  colorButton === "customize" ? "button-click" : ""
+                }`}
+                onClick={() => {
+                  handleClickLoading();
+                  changeColorButton("customize");
+                }}
               >
                 CUSTOMIZE
               </button>
             </div>
 
             <div className="button-container">
-              <button className="button-add" onClick={handleAddToCart}>
+              <button
+                className={`button-add ${
+                  colorButton === "add" ? "button-click" : ""
+                }`}
+                onClick={() => {
+                  handleAddToCart();
+                  changeColorButton("add");
+                }}
+              >
                 {" "}
                 ADD
               </button>
