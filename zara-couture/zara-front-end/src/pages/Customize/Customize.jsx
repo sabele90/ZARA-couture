@@ -53,6 +53,7 @@ function Customize() {
   const [progress, setProgress] = React.useState(0);
   const [loading, setLoading] = useState(false);
   const [finishedLoading, setFinishedLoading] = useState(false);
+  const [customize, setCustomize] = useState("");
   const [colorButton, setColorButton] = useState(false);
   const { addToCart } = useShoppingCart();
 
@@ -83,9 +84,12 @@ function Customize() {
   const handleClickImage = (newImage) => {
     setImage(newImage);
   };
-  const handleClickLoading = () => {
+  const handleCustomize = () => {
     setLoading(true);
     startProgress();
+    setCustomize(
+      "https://static.zara.net/photos///2024/V/0/1/p/2094/745/800/2/w/850/2094745800_2_1_1.jpg?ts=1701278486022"
+    );
   };
 
   const handleAddToCart = () => {
@@ -93,7 +97,7 @@ function Customize() {
       id: selectedItem.id,
       name: selectedItem.name,
       price: selectedItem.price,
-      image: image,
+      image: customize || selectedItem.images[0],
     };
     addToCart(productToAdd);
   };
@@ -137,11 +141,8 @@ function Customize() {
           <div className="main-image-container">
             {loading && !finishedLoading ? (
               <CircularProgressWithLabel value={progress} />
-            ) : finishedLoading ? (
-              <img
-                className="main-image"
-                src="https://static.zara.net/photos///2023/I/0/1/p/0518/043/401/2/w/850/0518043401_1_1_1.jpg?ts=1694984370835"
-              />
+            ) : finishedLoading && customize ? (
+              <img className="main-image" src={customize} />
             ) : (
               <img className="main-image" src={image} />
             )}
@@ -390,8 +391,9 @@ function Customize() {
                   colorButton === "customize" ? "button-click" : ""
                 }`}
                 onClick={() => {
-                  handleClickLoading();
+                  handleCustomize();
                   changeColorButton("customize");
+                  handleCustomize();
                 }}
               >
                 CUSTOMIZE
