@@ -1,17 +1,18 @@
 import "./Bag.css";
 import React from "react";
-
 import { useShoppingCart } from "../../Context/ShoopingCartContext";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Bag() {
+  const navigate = useNavigate();
   const { cartItems, total } = useShoppingCart();
+
+  const handleContinueShopping = () => {
+    navigate("/couture");
+  };
 
   return (
     <div className="body-bag">
-      <Link to="/couture">
-        <h5 className="back-shopping-bag">CONTINUE SHOPPING</h5>
-      </Link>
       {cartItems.map((item) => (
         <div key={item.id}>
           <img className="item-cart" src={item.image} alt={item.name} />
@@ -28,7 +29,15 @@ function Bag() {
             </div>
           </div>
         ))}
+
         <div className="total-items">Total: ${total}</div>
+
+        <button
+          className="button-shopping-bag"
+          onClick={handleContinueShopping}
+        >
+          CONTINUE SHOPPING
+        </button>
         <button className="button-pay">PAY</button>
       </div>
     </div>

@@ -1,53 +1,59 @@
-.body-bag{
-    margin-top: 20rem;
-    width: 100vw;
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
+.body-bag {
+  margin-top: 20rem;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
-
-.item-cart{
-    padding-left: 6rem;
-    object-fit: cover;
-    height: 20rem;
-    width: 15rem;
+.item-cart {
+  padding-left: 6rem;
+  object-fit: cover;
+  height: 20rem;
+  width: 15rem;
 }
-.item-name{
-    padding-left: 6rem;
+.item-name {
+  padding-left: 6rem;
 }
-.item-name-box{
-  padding-left: 2rem;
-
+.item-price {
+  padding-left: 6rem;
 }
-.item-price{
-    padding-left: 6rem;
+.item-name-box {
+  padding-bottom: 1rem;
 }
-.total-items{
-position: absolute;
-right: 0;
-bottom:3rem;
-padding: 1rem;
-}
-.payment-item{
-    position: relative;
-   position: absolute;
-   display: flex;
-flex-direction: column;
-align-items: center;
+.payment-item {
+  font-size: 14px;
+  position: relative;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: end;
-   right: 4rem;
-    width: 20rem;
-    height: 20rem;
-    border: 0.5px solid black;
+  right: 4rem;
+  width: 20rem;
+  height: 20rem;
+  border: 0.5px solid black;
+}
+.total-items {
+  margin-left: 13rem;
+  padding: 1rem;
+}
+.button-shopping-bag {
+  width: 100%;
+  height: 2rem;
+  background-color: white;
+  font-size: 0.7rem;
+  border: 0.5px solid black;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
 }
 .button-pay {
-    width: 100%;
-    height: 2rem;
-    background-color: white;
-    font-size: 0.7rem;
-    border: 0.5px solid black;
-    margin-top: 6rem;
-    border-right: none;
-    border-bottom: none;
-    border-left: none;
-  }
+  width: 100%;
+  height: 2rem;
+  background-color: white;
+  font-size: 0.7rem;
+  border: 0.5px solid black;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+}

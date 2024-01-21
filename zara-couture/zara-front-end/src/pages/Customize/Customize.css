@@ -24,10 +24,6 @@
   width: 100vw;
 }
 
-.back-shopping{
-  position: absolute;
-
-}
 .composition {
   font-size: small;
   margin-top: 15rem;
@@ -246,13 +242,23 @@ gap: 0.3rem;
   display: flex;
   justify-content: center;
 }
-.button-option-customize {
+.button-shopping {
+  width: 100%;
+  height: 2rem;
+  background-color: white;
+  margin-top: 2rem;
+  font-size: 0.7rem;
+  border: 0.5px solid black;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+}
+.button-customize {
   width: 100%;
   height: 2rem;
   background-color: white;
   font-size: 0.7rem;
   border: 0.5px solid black;
-  margin-top: 1rem;
   border-right: none;
   border-bottom: none;
   border-left: none;

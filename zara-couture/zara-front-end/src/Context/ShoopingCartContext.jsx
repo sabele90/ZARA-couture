@@ -12,7 +12,11 @@ export const ShoppingCartProvider = ({ children }) => {
     setCartItems((prevItems) => [...prevItems, item]);
   };
   useEffect(() => {
-    const newTotal = cartItems.reduce((total, item) => total + item.price, 0);
+    const newTotal = cartItems.reduce((total, item) => {
+      //El precio esta almacenado en una cadena y lo convierto a numero
+      const price = parseFloat(item.price);
+      return total + price;
+    }, 0);
     setTotal(newTotal);
   }, [cartItems]);
   const count = cartItems.length;

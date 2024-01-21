@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./Customize.css";
 import { Link, useParams } from "react-router-dom";
-import { clothing } from "../../../data";
 import PropTypes from "prop-types";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useShoppingCart } from "../../Context/ShoopingCartContext";
+import { getOneClothes } from "../../services/clothes";
+import { useNavigate } from "react-router-dom";
 
 function CircularProgressWithLabel(props) {
   return (
@@ -56,6 +57,7 @@ function Customize() {
   const [customize, setCustomize] = useState("");
   const [colorButton, setColorButton] = useState(false);
   const { addToCart } = useShoppingCart();
+  const navigate = useNavigate();
 
   const startProgress = () => {
     const timer = setInterval(() => {
@@ -71,13 +73,19 @@ function Customize() {
     }, 800);
   };
 
+  async function getOneItem(clotheId) {
+    const item = await getOneClothes(clotheId);
+    setSelectedItem(item);
+  }
+
   useEffect(() => {
     const numericId = parseInt(id, 10);
-    const item = clothing.find((item) => item.id === numericId);
-    setSelectedItem(item);
+    getOneItem(numericId);
 
     // Si el artículo se encuentra, usa su primera imagen, si no, usa la URL de la imagen codificada
-    setImage(item ? item.images[0] : decodeURIComponent(encodedImageUrl));
+    setImage(
+      selectedItem ? selectedItem.image1 : decodeURIComponent(encodedImageUrl)
+    );
     console.log("ID:", id, "Encoded Image URL:", encodedImageUrl);
   }, [id, encodedImageUrl]);
 
@@ -97,7 +105,7 @@ function Customize() {
       id: selectedItem.id,
       name: selectedItem.name,
       price: selectedItem.price,
-      image: customize || selectedItem.images[0],
+      image: customize || selectedItem.image1,
     };
     addToCart(productToAdd);
   };
@@ -125,14 +133,16 @@ function Customize() {
   const changeColorButton = (id) => {
     setColorButton(colorButton === id ? null : id);
   };
+
+  const handleContinueShopping = () => {
+    navigate("/couture");
+  };
+
   return (
     <>
+      {console.log("item", selectedItem)}
       <div className="body-customize">
         <div className="elements">
-          <Link to="/couture">
-            <h5 className="back-shopping">CONTINUE SHOPPING</h5>
-          </Link>
-
           <div className="composition">
             <h5>{selectedItem?.title}</h5>
             <h5>{selectedItem?.titleComposition}</h5>
@@ -387,7 +397,20 @@ function Customize() {
             </div>
             <div className="button-container">
               <button
-                className={`button-option-customize ${
+                className={`button-shopping ${
+                  colorButton === "shopping" ? "button-click" : ""
+                }`}
+                onClick={() => {
+                  handleContinueShopping();
+                  changeColorButton("shopping");
+                }}
+              >
+                CONTINUE SHOPPING
+              </button>
+            </div>
+            <div className="button-container">
+              <button
+                className={`button-customize ${
                   colorButton === "customize" ? "button-click" : ""
                 }`}
                 onClick={() => {
