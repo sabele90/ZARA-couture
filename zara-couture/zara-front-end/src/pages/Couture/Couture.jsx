@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Couture.css";
-import { Icon } from "@mui/material";
-import { Link } from "react-router-dom";
-import ClothingItem from "../../components/Clothing/Clothing";
-import { clothing } from "../../../data";
+import Clothing from "../../components/Clothing/Clothing";
+import { getAllClothes } from "../../../services/clothes";
 
 function Couture() {
-  return (
+  const [clothesData, setClothesData] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const data = await getAllClothes();
+        setClothesData(data);
+      } catch (error) {
+        console.error("Error data:", error);
+      }
+    }
+     getData();
+  }, []);
+  console.log("clothes:", clothesData[0]);
+  {clothesData ? return (
+    
     <div className="body-couture">
       <video className="video-logo" muted autoPlay loop>
         <source
@@ -15,7 +28,7 @@ function Couture() {
         />
       </video>
       <div className="row-0">
-        <ClothingItem item={clothing[0]} index={0} />
+        <Clothing key={clothesData[0].id} item={clothesData[0]} />
 
         <video className="video-1" muted autoPlay loop height="100%">
           <source
@@ -24,8 +37,6 @@ function Couture() {
           />
         </video>
       </div>
-
-      <ClothingItem item={clothing[1]} index={1} />
 
       <div className="row-1">
         <img
@@ -40,8 +51,8 @@ function Couture() {
       </div>
 
       <div className="row-3">
-        <ClothingItem item={clothing[2]} index={2} />
-        <ClothingItem item={clothing[3]} index={3} />
+        <Clothing />
+        <Clothing />
       </div>
 
       <div className="row-4">
@@ -51,6 +62,7 @@ function Couture() {
         />
       </div>
     </div>
+    }
   );
 }
 
