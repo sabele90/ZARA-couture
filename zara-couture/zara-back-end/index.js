@@ -1,13 +1,13 @@
 require("dotenv").config();
-
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const { checkConnection, syncModels } = require("./DB-connection");
+const Clothes = require("./api/models/clothes.model");
 
 async function connectionDB() {
   checkConnection();
-  syncModels();
+  syncModels("alter");
 }
 
 function launchServer() {
