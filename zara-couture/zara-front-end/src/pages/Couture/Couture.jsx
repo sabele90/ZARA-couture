@@ -19,8 +19,6 @@ function Couture() {
         setItem2(data[1]);
         setItem3(data[2]);
         setItem4(data[3]);
-
-        console.log("data");
       } catch (error) {
         console.error("Error data:", error);
       }

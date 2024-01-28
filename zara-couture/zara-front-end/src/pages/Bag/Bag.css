@@ -12,10 +12,14 @@
   width: 15rem;
 }
 .item-name {
+  font-size: 10px;
+  font-weight: 600;
   padding-left: 6rem;
 }
 .item-price {
+  font-size: 15px;
   padding-left: 6rem;
+
 }
 .item-name-box {
   padding-bottom: 1rem;
@@ -32,6 +36,12 @@
   width: 20rem;
   height: 20rem;
   border: 0.5px solid black;
+
+}
+.row-name-price{
+  display: flex;
+  gap: 1rem;
+  margin-left: 2.5rem;
 }
 .total-items {
   margin-left: 13rem;

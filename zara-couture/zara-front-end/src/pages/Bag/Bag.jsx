@@ -1,7 +1,7 @@
 import "./Bag.css";
 import React from "react";
 import { useShoppingCart } from "../../Context/ShoopingCartContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Bag() {
   const navigate = useNavigate();
@@ -9,6 +9,10 @@ function Bag() {
 
   const handleContinueShopping = () => {
     navigate("/couture");
+  };
+
+  const handlePay = () => {
+    navigate("/payment", { state: { total } });
   };
 
   return (
@@ -23,10 +27,9 @@ function Bag() {
 
       <div className="payment-item">
         {cartItems.map((item) => (
-          <div key={item.id}>
-            <div className="item-name-box">
-              {item.name}-{item.price}
-            </div>
+          <div key={item.id} className="row-name-price">
+            <div className="item-name-box">{item.name}</div>
+            <div className="item-price-box">${item.price}</div>
           </div>
         ))}
 
@@ -38,7 +41,10 @@ function Bag() {
         >
           CONTINUE SHOPPING
         </button>
-        <button className="button-pay">PAY</button>
+
+        <button className="button-pay" onClick={handlePay}>
+          PAY
+        </button>
       </div>
     </div>
   );

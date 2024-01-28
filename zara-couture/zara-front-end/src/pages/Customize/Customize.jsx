@@ -140,7 +140,6 @@ function Customize() {
 
   return (
     <>
-      {console.log("item", selectedItem)}
       <div className="body-customize">
         <div className="elements">
           <div className="composition">

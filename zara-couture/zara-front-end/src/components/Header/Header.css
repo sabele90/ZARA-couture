@@ -19,8 +19,7 @@
   background-color: transparent;
   height: 9rem;
 }
-.header-container-text {
-  position: relative;
+.header-container-text{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -32,6 +31,7 @@
   margin-top: -2rem;
   margin-left: 6rem;
   font-size: 9rem;
+
 }
 .header-text-a {
   position: absolute;
@@ -39,6 +39,7 @@
   margin-top: -2rem;
   margin-left: 8.5rem;
   font-size: 9rem;
+
 }
 .header-text-r {
   position: absolute;
@@ -46,6 +47,7 @@
   margin-top: -2rem;
   margin-left: 13rem;
   font-size: 9rem;
+
 }
 .header-text-a-a {
   position: absolute;
@@ -53,6 +55,7 @@
   margin-top: -2rem;
   margin-left: 16rem;
   font-size: 9rem;
+
 }
 .search-container {
   left: 20rem;
@@ -77,13 +80,91 @@
   text-align: end;
 }
 .zara-options {
+  display: flex;
+  gap:15rem;
   font-size: 0.8rem;
-  left: 22rem;
+  left: 31.5rem;
   top: 6rem;
   position: absolute;
   height: 3rem;
   width: 40rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+
+}
+@media (max-width : 740px){
+  .header {
+
+
+    width: 100vw;
+  }
+
+  .header-container {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+
+   
+
+  }
+
+  .header-container-text {
+    background-color: blue;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en varias líneas si no caben */
+    font-size: 2rem; /* Ajustar el tamaño de la fuente para dispositivos móviles */
+    position: absolute;
+    left: -5rem;
+    margin-top: 4rem;
+  }
+
+  .header-text-z {
+    position: absolute;
+    color: black;
+    margin-top: -2rem;
+    margin-left: 6rem;
+    font-size: 9rem;
+  
+  }
+  .header-text-a {
+    position: absolute;
+    color: black;
+    margin-top: -2rem;
+    margin-left: 8.5rem;
+    font-size: 9rem;
+  
+  }
+  .header-text-r {
+    position: absolute;
+    color: black;
+    margin-top: -2rem;
+    margin-left: 13rem;
+    font-size: 9rem;
+  
+  }
+  .header-text-a-a {
+    position: absolute;
+    color: black;
+    margin-top: -2rem;
+    margin-left: 16rem;
+    font-size: 9rem;
+  
+  }
+
+  .shooping-bag-container{
+    width: 100%;
+    margin:0;
+   display: flex;
+   justify-content: space-around;
+  font-size: 20px;
+  font-weight: 500;
+
+  } 
+  
+  .zara-options {
+display: none;
+  }
+
+  .inputSearch {
+  
+    width: 70%; /* Ancho más pequeño para la búsqueda */
+    margin: 2rem;
+  }
 }

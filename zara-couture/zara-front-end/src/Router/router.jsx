@@ -5,6 +5,7 @@ import Home from "../pages/Home/Home";
 import Couture from "../pages/Couture/Couture";
 import Customize from "../pages/Customize/Customize";
 import Bag from "../pages/Bag/Bag";
+import Payment from "../pages/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/bag",
         element: <Bag />,
+      },
+      {
+        path: "/payment",
+        element: <Payment />,
       },
     ],
   },

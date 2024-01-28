@@ -20,18 +20,13 @@ function Header() {
         <div className="header-container">
           <Link to="/">
             <div className="header-container-text">
-              <div>
-                <h1 className="header-text-z">Z</h1>
-              </div>
-              <div>
-                <h1 className="header-text-a">A</h1>
-              </div>
-              <div>
-                <h1 className="header-text-r">R</h1>
-              </div>
-              <div>
-                <h1 className="header-text-a-a">A</h1>
-              </div>
+              <h1 className="header-text-z">Z</h1>
+
+              <h1 className="header-text-a">A</h1>
+
+              <h1 className="header-text-r">R</h1>
+
+              <h1 className="header-text-a-a">A</h1>
             </div>
           </Link>
           <div className="shooping-bag-container">
@@ -50,7 +45,6 @@ function Header() {
               <p>MAN</p>
               <p>KIDS</p>
               <p>BEAUTY</p>
-              <p>ZARA PRE-OWNED</p>
             </div>
           )}
         </div>
